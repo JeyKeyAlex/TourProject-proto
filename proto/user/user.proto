@@ -1,0 +1,44 @@
+syntax = "proto3";
+package user;
+
+option go_package = "proto.user.v1;proto";
+
+import "google/protobuf/empty.proto";
+import "user/type.proto";
+
+service User {
+  rpc CreateUser (CreateUserRequest) returns (google.protobuf.Empty);
+  rpc ApproveUser (ApproveUserRequest) returns (Id);
+  rpc GetUserList (google.protobuf.Empty) returns (GetUserListResponse);
+  rpc GetUserById (Id) returns (GetUserByIdResponse);
+  rpc DeleteUserById (Id) returns (google.protobuf.Empty);
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string lastName = 2;
+  optional string middleName = 3;
+  optional string nickname = 4;
+  string email = 5;
+  optional string phoneNumber = 6;
+}
+
+message ApproveUserRequest {
+  string email = 1;
+}
+
+message GetUserListResponse {
+ repeated proto.User user = 1;
+}
+
+message GetUserByIdResponse {
+  proto.User user = 1;
+}
+
+message Id {
+  int64 id = 1;
+}
+
+
+
+

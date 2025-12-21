@@ -1,0 +1,15 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "proto.user.v1;proto";
+
+message User {
+  int64 id = 1;
+  string name = 2;
+  string lastName = 3;
+  optional string middleName = 4;
+  optional string nickname = 5;
+  string email = 6;
+  optional string phoneNumber = 7;
+  optional string createdAt = 8;
+}

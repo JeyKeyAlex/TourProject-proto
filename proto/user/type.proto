@@ -1,5 +1,5 @@
 syntax = "proto3";
-package proto;
+package user;
 
 option go_package = "proto.user.v1;proto";
 

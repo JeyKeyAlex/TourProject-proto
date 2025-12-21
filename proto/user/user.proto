@@ -6,7 +6,7 @@ option go_package = "proto.user.v1;proto";
 import "google/protobuf/empty.proto";
 import "user/type.proto";
 
-service User {
+service UserService {
   rpc CreateUser (CreateUserRequest) returns (google.protobuf.Empty);
   rpc ApproveUser (ApproveUserRequest) returns (Id);
   rpc GetUserList (google.protobuf.Empty) returns (GetUserListResponse);
@@ -28,11 +28,11 @@ message ApproveUserRequest {
 }
 
 message GetUserListResponse {
- repeated proto.User user = 1;
+ repeated user.User user = 1;
 }
 
 message GetUserByIdResponse {
-  proto.User user = 1;
+  user.User user = 1;
 }
 
 message Id {

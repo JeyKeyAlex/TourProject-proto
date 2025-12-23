@@ -1,0 +1,71 @@
+name: Generate Protobuf Files
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Install protoc
+        uses: arduino/setup-protoc@v2
+        with:
+          version: 'latest'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Go plugins
+        run: |
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+          go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+      - name: Generate protobuf files
+        run: |
+          protoc -I proto proto/user/type.proto proto/user/user.proto \
+            --go_out=./go-genproto \
+            --go_opt=paths=source_relative \
+            --go-grpc_out=./go-genproto \
+            --go-grpc_opt=paths=source_relative
+
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain go-genproto/)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit generated files
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add go-genproto/
+          git commit -m "chore: auto-generate protobuf files [skip ci]" || exit 0
+          git push
+
+      - name: Fail if files are outdated
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'pull_request'
+        run: |
+          echo "❌ Generated protobuf files are outdated. Please run 'make proto' or push changes to trigger auto-generation."
+          exit 1
+

@@ -8,10 +8,10 @@ import "user/type.proto";
 
 service UserService {
   rpc CreateUser (CreateUserRequest) returns (google.protobuf.Empty);
-  rpc ApproveUser (ApproveUserRequest) returns (Id);
+  rpc ApproveUser (ApproveUserRequest) returns (IdMessage);
   rpc GetUserList (google.protobuf.Empty) returns (GetUserListResponse);
-  rpc GetUserById (Id) returns (GetUserByIdResponse);
-  rpc DeleteUserById (Id) returns (google.protobuf.Empty);
+  rpc GetUserById (IdMessage) returns (GetUserByIdResponse);
+  rpc DeleteUserById (IdMessage) returns (google.protobuf.Empty);
 }
 
 message CreateUserRequest {
@@ -35,7 +35,7 @@ message GetUserByIdResponse {
   user.User user = 1;
 }
 
-message Id {
+message IdMessage {
   int64 id = 1;
 }
 

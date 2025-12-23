@@ -106,6 +106,90 @@ func (x *CreateRequest) GetPhoneNumber() string {
 	return ""
 }
 
+type UpdateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          *string                `protobuf:"bytes,1,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	LastName      *string                `protobuf:"bytes,2,opt,name=lastName,proto3,oneof" json:"lastName,omitempty"`
+	MiddleName    *string                `protobuf:"bytes,3,opt,name=middleName,proto3,oneof" json:"middleName,omitempty"`
+	Nickname      *string                `protobuf:"bytes,4,opt,name=nickname,proto3,oneof" json:"nickname,omitempty"`
+	Email         *string                `protobuf:"bytes,5,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	PhoneNumber   *string                `protobuf:"bytes,6,opt,name=phoneNumber,proto3,oneof" json:"phoneNumber,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateRequest) Reset() {
+	*x = UpdateRequest{}
+	mi := &file_user_user_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRequest) ProtoMessage() {}
+
+func (x *UpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_user_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRequest.ProtoReflect.Descriptor instead.
+func (*UpdateRequest) Descriptor() ([]byte, []int) {
+	return file_user_user_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *UpdateRequest) GetName() string {
+	if x != nil && x.Name != nil {
+		return *x.Name
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetLastName() string {
+	if x != nil && x.LastName != nil {
+		return *x.LastName
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetMiddleName() string {
+	if x != nil && x.MiddleName != nil {
+		return *x.MiddleName
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetNickname() string {
+	if x != nil && x.Nickname != nil {
+		return *x.Nickname
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetEmail() string {
+	if x != nil && x.Email != nil {
+		return *x.Email
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetPhoneNumber() string {
+	if x != nil && x.PhoneNumber != nil {
+		return *x.PhoneNumber
+	}
+	return ""
+}
+
 type ApproveRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
@@ -115,7 +199,7 @@ type ApproveRequest struct {
 
 func (x *ApproveRequest) Reset() {
 	*x = ApproveRequest{}
-	mi := &file_user_user_proto_msgTypes[1]
+	mi := &file_user_user_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -127,7 +211,7 @@ func (x *ApproveRequest) String() string {
 func (*ApproveRequest) ProtoMessage() {}
 
 func (x *ApproveRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_user_user_proto_msgTypes[1]
+	mi := &file_user_user_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -140,7 +224,7 @@ func (x *ApproveRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ApproveRequest.ProtoReflect.Descriptor instead.
 func (*ApproveRequest) Descriptor() ([]byte, []int) {
-	return file_user_user_proto_rawDescGZIP(), []int{1}
+	return file_user_user_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ApproveRequest) GetEmail() string {
@@ -159,7 +243,7 @@ type GetListResponse struct {
 
 func (x *GetListResponse) Reset() {
 	*x = GetListResponse{}
-	mi := &file_user_user_proto_msgTypes[2]
+	mi := &file_user_user_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -171,7 +255,7 @@ func (x *GetListResponse) String() string {
 func (*GetListResponse) ProtoMessage() {}
 
 func (x *GetListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_user_proto_msgTypes[2]
+	mi := &file_user_user_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -184,7 +268,7 @@ func (x *GetListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetListResponse.ProtoReflect.Descriptor instead.
 func (*GetListResponse) Descriptor() ([]byte, []int) {
-	return file_user_user_proto_rawDescGZIP(), []int{2}
+	return file_user_user_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetListResponse) GetUser() []*User {
@@ -203,7 +287,7 @@ type GetResponse struct {
 
 func (x *GetResponse) Reset() {
 	*x = GetResponse{}
-	mi := &file_user_user_proto_msgTypes[3]
+	mi := &file_user_user_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -215,7 +299,7 @@ func (x *GetResponse) String() string {
 func (*GetResponse) ProtoMessage() {}
 
 func (x *GetResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_user_user_proto_msgTypes[3]
+	mi := &file_user_user_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -228,7 +312,7 @@ func (x *GetResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetResponse.ProtoReflect.Descriptor instead.
 func (*GetResponse) Descriptor() ([]byte, []int) {
-	return file_user_user_proto_rawDescGZIP(), []int{3}
+	return file_user_user_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetResponse) GetUser() *User {
@@ -247,7 +331,7 @@ type IdMessage struct {
 
 func (x *IdMessage) Reset() {
 	*x = IdMessage{}
-	mi := &file_user_user_proto_msgTypes[4]
+	mi := &file_user_user_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -259,7 +343,7 @@ func (x *IdMessage) String() string {
 func (*IdMessage) ProtoMessage() {}
 
 func (x *IdMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_user_user_proto_msgTypes[4]
+	mi := &file_user_user_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -272,7 +356,7 @@ func (x *IdMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IdMessage.ProtoReflect.Descriptor instead.
 func (*IdMessage) Descriptor() ([]byte, []int) {
-	return file_user_user_proto_rawDescGZIP(), []int{4}
+	return file_user_user_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *IdMessage) GetId() int64 {
@@ -298,6 +382,21 @@ const file_user_user_proto_rawDesc = "" +
 	"\vphoneNumber\x18\x06 \x01(\tH\x02R\vphoneNumber\x88\x01\x01B\r\n" +
 	"\v_middleNameB\v\n" +
 	"\t_nicknameB\x0e\n" +
+	"\f_phoneNumber\"\x9d\x02\n" +
+	"\rUpdateRequest\x12\x17\n" +
+	"\x04name\x18\x01 \x01(\tH\x00R\x04name\x88\x01\x01\x12\x1f\n" +
+	"\blastName\x18\x02 \x01(\tH\x01R\blastName\x88\x01\x01\x12#\n" +
+	"\n" +
+	"middleName\x18\x03 \x01(\tH\x02R\n" +
+	"middleName\x88\x01\x01\x12\x1f\n" +
+	"\bnickname\x18\x04 \x01(\tH\x03R\bnickname\x88\x01\x01\x12\x19\n" +
+	"\x05email\x18\x05 \x01(\tH\x04R\x05email\x88\x01\x01\x12%\n" +
+	"\vphoneNumber\x18\x06 \x01(\tH\x05R\vphoneNumber\x88\x01\x01B\a\n" +
+	"\x05_nameB\v\n" +
+	"\t_lastNameB\r\n" +
+	"\v_middleNameB\v\n" +
+	"\t_nicknameB\b\n" +
+	"\x06_emailB\x0e\n" +
 	"\f_phoneNumber\"&\n" +
 	"\x0eApproveRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"1\n" +
@@ -308,11 +407,11 @@ const file_user_user_proto_rawDesc = "" +
 	"\x04user\x18\x01 \x01(\v2\n" +
 	".user.UserR\x04user\"\x1b\n" +
 	"\tIdMessage\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id2\x96\x02\n" +
-	"\vUserService\x129\n" +
-	"\n" +
-	"CreateUser\x12\x13.user.CreateRequest\x1a\x16.google.protobuf.Empty\x124\n" +
-	"\vApproveUser\x12\x14.user.ApproveRequest\x1a\x0f.user.IdMessage\x128\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id2\xbe\x02\n" +
+	"\vUserService\x125\n" +
+	"\x06Create\x12\x13.user.CreateRequest\x1a\x16.google.protobuf.Empty\x120\n" +
+	"\aApprove\x12\x14.user.ApproveRequest\x1a\x0f.user.IdMessage\x12.\n" +
+	"\x06Update\x12\x13.user.UpdateRequest\x1a\x0f.user.IdMessage\x128\n" +
 	"\aGetList\x12\x16.google.protobuf.Empty\x1a\x15.user.GetListResponse\x12)\n" +
 	"\x03Get\x12\x0f.user.IdMessage\x1a\x11.user.GetResponse\x121\n" +
 	"\x06Delete\x12\x0f.user.IdMessage\x1a\x16.google.protobuf.EmptyB\x15Z\x13proto.user.v1;protob\x06proto3"
@@ -329,31 +428,34 @@ func file_user_user_proto_rawDescGZIP() []byte {
 	return file_user_user_proto_rawDescData
 }
 
-var file_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_user_user_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_user_user_proto_goTypes = []any{
 	(*CreateRequest)(nil),   // 0: user.CreateRequest
-	(*ApproveRequest)(nil),  // 1: user.ApproveRequest
-	(*GetListResponse)(nil), // 2: user.GetListResponse
-	(*GetResponse)(nil),     // 3: user.GetResponse
-	(*IdMessage)(nil),       // 4: user.IdMessage
-	(*User)(nil),            // 5: user.User
-	(*emptypb.Empty)(nil),   // 6: google.protobuf.Empty
+	(*UpdateRequest)(nil),   // 1: user.UpdateRequest
+	(*ApproveRequest)(nil),  // 2: user.ApproveRequest
+	(*GetListResponse)(nil), // 3: user.GetListResponse
+	(*GetResponse)(nil),     // 4: user.GetResponse
+	(*IdMessage)(nil),       // 5: user.IdMessage
+	(*User)(nil),            // 6: user.User
+	(*emptypb.Empty)(nil),   // 7: google.protobuf.Empty
 }
 var file_user_user_proto_depIdxs = []int32{
-	5, // 0: user.GetListResponse.user:type_name -> user.User
-	5, // 1: user.GetResponse.user:type_name -> user.User
-	0, // 2: user.UserService.CreateUser:input_type -> user.CreateRequest
-	1, // 3: user.UserService.ApproveUser:input_type -> user.ApproveRequest
-	6, // 4: user.UserService.GetList:input_type -> google.protobuf.Empty
-	4, // 5: user.UserService.Get:input_type -> user.IdMessage
-	4, // 6: user.UserService.Delete:input_type -> user.IdMessage
-	6, // 7: user.UserService.CreateUser:output_type -> google.protobuf.Empty
-	4, // 8: user.UserService.ApproveUser:output_type -> user.IdMessage
-	2, // 9: user.UserService.GetList:output_type -> user.GetListResponse
-	3, // 10: user.UserService.Get:output_type -> user.GetResponse
-	6, // 11: user.UserService.Delete:output_type -> google.protobuf.Empty
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
+	6, // 0: user.GetListResponse.user:type_name -> user.User
+	6, // 1: user.GetResponse.user:type_name -> user.User
+	0, // 2: user.UserService.Create:input_type -> user.CreateRequest
+	2, // 3: user.UserService.Approve:input_type -> user.ApproveRequest
+	1, // 4: user.UserService.Update:input_type -> user.UpdateRequest
+	7, // 5: user.UserService.GetList:input_type -> google.protobuf.Empty
+	5, // 6: user.UserService.Get:input_type -> user.IdMessage
+	5, // 7: user.UserService.Delete:input_type -> user.IdMessage
+	7, // 8: user.UserService.Create:output_type -> google.protobuf.Empty
+	5, // 9: user.UserService.Approve:output_type -> user.IdMessage
+	5, // 10: user.UserService.Update:output_type -> user.IdMessage
+	3, // 11: user.UserService.GetList:output_type -> user.GetListResponse
+	4, // 12: user.UserService.Get:output_type -> user.GetResponse
+	7, // 13: user.UserService.Delete:output_type -> google.protobuf.Empty
+	8, // [8:14] is the sub-list for method output_type
+	2, // [2:8] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
 	2, // [2:2] is the sub-list for extension extendee
 	0, // [0:2] is the sub-list for field type_name
@@ -366,13 +468,14 @@ func file_user_user_proto_init() {
 	}
 	file_user_type_proto_init()
 	file_user_user_proto_msgTypes[0].OneofWrappers = []any{}
+	file_user_user_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_user_user_proto_rawDesc), len(file_user_user_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

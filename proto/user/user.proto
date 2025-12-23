@@ -7,8 +7,9 @@ import "google/protobuf/empty.proto";
 import "user/type.proto";
 
 service UserService {
-  rpc CreateUser (CreateRequest) returns (google.protobuf.Empty);
-  rpc ApproveUser (ApproveRequest) returns (IdMessage);
+  rpc Create (CreateRequest) returns (google.protobuf.Empty);
+  rpc Approve (ApproveRequest) returns (IdMessage);
+  rpc Update (UpdateRequest) returns (IdMessage);
   rpc GetList (google.protobuf.Empty) returns (GetListResponse);
   rpc Get (IdMessage) returns (GetResponse);
   rpc Delete (IdMessage) returns (google.protobuf.Empty);
@@ -20,6 +21,15 @@ message CreateRequest {
   optional string middleName = 3;
   optional string nickname = 4;
   string email = 5;
+  optional string phoneNumber = 6;
+}
+
+message UpdateRequest {
+  optional string name = 1;
+  optional string lastName = 2;
+  optional string middleName = 3;
+  optional string nickname = 4;
+  optional string email = 5;
   optional string phoneNumber = 6;
 }
 

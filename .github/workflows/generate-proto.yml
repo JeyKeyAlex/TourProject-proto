@@ -13,12 +13,13 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Set up Go
@@ -65,7 +66,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git add go-genproto/
           git commit -m "chore: auto-generate protobuf files [skip ci]" || exit 0
-          git push
+          git push origin HEAD:${{ github.ref }}
 
       - name: Fail if files are outdated
         if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'pull_request'

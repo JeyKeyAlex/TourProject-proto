@@ -29,7 +29,7 @@ message UpdateRequest {
   optional string lastName = 2;
   optional string middleName = 3;
   optional string nickname = 4;
-  optional string int64 = 5;
+  optional string email = 5;
   optional string phoneNumber = 6;
 }
 

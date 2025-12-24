@@ -15,12 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -60,17 +63,15 @@ jobs:
           fi
 
       - name: Commit generated files
-        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        if: steps.verify-changed-files.outputs.changed == 'true' && github.actor != 'github-actions[bot]'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add go-genproto/
           git commit -m "chore: auto-generate protobuf files [skip ci]" || exit 0
-          git push origin HEAD:${{ github.ref }}
-
-      - name: Fail if files are outdated
-        if: steps.verify-changed-files.outputs.changed == 'true' && github.event_name == 'pull_request'
-        run: |
-          echo "❌ Generated protobuf files are outdated. Please run 'make proto' or push changes to trigger auto-generation."
-          exit 1
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          else
+            git push origin HEAD:${{ github.ref }}
+          fi
 

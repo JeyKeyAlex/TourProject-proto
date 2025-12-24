@@ -7,15 +7,15 @@ import "google/protobuf/empty.proto";
 import "user/type.proto";
 
 service UserService {
-  rpc Create (CreateRequest) returns (google.protobuf.Empty);
-  rpc Approve (ApproveRequest) returns (IdMessage);
-  rpc Update (UpdateRequest) returns (IdMessage);
-  rpc GetList (google.protobuf.Empty) returns (GetListResponse);
-  rpc Get (IdMessage) returns (GetResponse);
+  rpc Create (CreateUserRequest) returns (google.protobuf.Empty);
+  rpc Approve (ApproveUserRequest) returns (IdMessage);
+  rpc Update (UpdateUserRequest) returns (IdMessage);
   rpc Delete (IdMessage) returns (google.protobuf.Empty);
+  rpc GetUserList (google.protobuf.Empty) returns (GetUserListResponse);
+  rpc GetUser (IdMessage) returns (GetUserResponse);
 }
 
-message CreateRequest {
+message CreateUserRequest {
   string name = 1;
   string lastName = 2;
   optional string middleName = 3;
@@ -24,7 +24,7 @@ message CreateRequest {
   optional string phoneNumber = 6;
 }
 
-message UpdateRequest {
+message UpdateUserRequest {
   optional string name = 1;
   optional string lastName = 2;
   optional string middleName = 3;
@@ -33,15 +33,15 @@ message UpdateRequest {
   optional string phoneNumber = 6;
 }
 
-message ApproveRequest {
+message ApproveUserRequest {
   string email = 1;
 }
 
-message GetListResponse {
+message GetUserListResponse {
  repeated user.User user = 1;
 }
 
-message GetResponse {
+message GetUserResponse {
   user.User user = 1;
 }
 

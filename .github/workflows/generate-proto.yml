@@ -100,6 +100,7 @@ jobs:
           echo "Default branch: $DEFAULT_BRANCH"
 
       - name: Commit generated files to genproto repo
+        id: commit-files
         if: steps.verify-changed-files.outputs.changed == 'true' && github.actor != 'github-actions[bot]'
         working-directory: genproto-repo
         env:
@@ -111,4 +112,42 @@ jobs:
           git commit -m "chore: auto-generate protobuf files [skip ci]" || exit 0
           git remote set-url origin https://x-access-token:${{ secrets.GENPROTO_TOKEN }}@github.com/JeyKeyAlex/TestProject-genproto.git
           git push origin ${{ steps.get-branch.outputs.branch }}
+          echo "committed=true" >> $GITHUB_OUTPUT
+
+      - name: Fetch tags from genproto repo
+        if: steps.commit-files.outputs.committed == 'true'
+        working-directory: genproto-repo
+        run: |
+          git fetch --tags origin
+
+      - name: Determine next version tag
+        id: get-version
+        if: steps.commit-files.outputs.committed == 'true'
+        working-directory: genproto-repo
+        run: |
+          LATEST_TAG=$(git tag -l "v*" | sort -V | tail -n 1)
+          if [ -z "$LATEST_TAG" ]; then
+            NEW_VERSION="v1.0.0"
+          else
+            # Extract version numbers (e.g., v1.2.3 -> 1 2 3)
+            VERSION_PARTS=$(echo "$LATEST_TAG" | sed 's/v//' | tr '.' ' ')
+            MAJOR=$(echo $VERSION_PARTS | awk '{print $1}')
+            MINOR=$(echo $VERSION_PARTS | awk '{print $2}')
+            PATCH=$(echo $VERSION_PARTS | awk '{print $3}')
+            
+            # Increment patch version
+            PATCH=$((PATCH + 1))
+            NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          fi
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Create and push tag
+        if: steps.commit-files.outputs.committed == 'true'
+        working-directory: genproto-repo
+        run: |
+          COMMIT_SHA=$(git rev-parse HEAD)
+          git tag -a "${{ steps.get-version.outputs.version }}" -m "chore: release ${{ steps.get-version.outputs.version }}"
+          git push origin "${{ steps.get-version.outputs.version }}"
+          echo "Tagged commit $COMMIT_SHA with ${{ steps.get-version.outputs.version }}"
 

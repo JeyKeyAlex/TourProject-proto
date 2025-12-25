@@ -4,7 +4,7 @@
 // 	protoc        v5.27.1
 // source: user/type.proto
 
-package proto
+package user
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -141,7 +141,7 @@ const file_user_type_proto_rawDesc = "" +
 	"\t_nicknameB\x0e\n" +
 	"\f_phoneNumberB\f\n" +
 	"\n" +
-	"_createdAtB\x15Z\x13proto.user.v1;protob\x06proto3"
+	"_createdAtB1Z/github.com/JeyKeyAlex/TestProject-genproto/userb\x06proto3"
 
 var (
 	file_user_type_proto_rawDescOnce sync.Once

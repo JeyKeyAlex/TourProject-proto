@@ -57,7 +57,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: JeyKeyAlex/TestProject-genproto
-          token: ${{ secrets.GENPROTO_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GENPROTO_TOKEN }}
           path: genproto-repo
           fetch-depth: 0
 
@@ -77,13 +77,31 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Determine default branch
+        id: get-branch
+        working-directory: genproto-repo
+        run: |
+          DEFAULT_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+          if [ -z "$DEFAULT_BRANCH" ]; then
+            if git show-ref --verify --quiet refs/remotes/origin/main; then
+              DEFAULT_BRANCH=main
+            else
+              DEFAULT_BRANCH=master
+            fi
+          fi
+          echo "branch=$DEFAULT_BRANCH" >> $GITHUB_OUTPUT
+          echo "Default branch: $DEFAULT_BRANCH"
+
       - name: Commit generated files to genproto repo
         if: steps.verify-changed-files.outputs.changed == 'true' && github.actor != 'github-actions[bot]'
         working-directory: genproto-repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GENPROTO_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add user/
           git commit -m "chore: auto-generate protobuf files [skip ci]" || exit 0
-          git push origin main || git push origin master
+          git remote set-url origin https://x-access-token:${{ secrets.GENPROTO_TOKEN }}@github.com/JeyKeyAlex/TestProject-genproto.git
+          git push origin ${{ steps.get-branch.outputs.branch }}
 

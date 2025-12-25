@@ -1,7 +1,7 @@
 syntax = "proto3";
 package user;
 
-option go_package = "proto.user.v1;proto";
+option go_package = "github.com/JeyKeyAlex/TestProject-genproto/user";
 
 import "google/protobuf/empty.proto";
 import "user/type.proto";

@@ -25,12 +25,13 @@ message CreateUserRequest {
 }
 
 message UpdateUserRequest {
-  optional string name = 1;
-  optional string lastName = 2;
-  optional string middleName = 3;
-  optional string nickname = 4;
-  optional string email = 5;
-  optional string phoneNumber = 6;
+  int64 id = 1;
+  optional string name = 2;
+  optional string lastName = 3;
+  optional string middleName = 4;
+  optional string nickname = 5;
+  optional string email = 6;
+  optional string phoneNumber = 7;
 }
 
 message ApproveUserRequest {

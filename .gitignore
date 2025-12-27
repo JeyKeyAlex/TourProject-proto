@@ -1,3 +1,7 @@
 # Generated protobuf files (published to TestProject-genproto repository)
 go-genproto/
 
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/TourProject-proto.iml
+/.idea/vcs.xml

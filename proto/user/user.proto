@@ -20,7 +20,7 @@ message CreateUserRequest {
   string lastName = 2;
   optional string middleName = 3;
   optional string nickname = 4;
-  string gay = 5;
+  string email = 5;
   optional string phoneNumber = 6;
 }
 

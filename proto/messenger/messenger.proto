@@ -1,0 +1,20 @@
+syntax = "proto3";
+package messenger;
+
+option go_package = "github.com/JeyKeyAlex/TestProject-genproto/messenger";
+
+import "google/protobuf/empty.proto";
+import "user/type.proto";
+
+service MessengerService {
+	rpc Create(CreateMessageRequest) returns (CreateMessageResponse);
+}
+
+message CreateMessageRequest {
+	string email = 1;
+}
+
+message CreateMessageResponse {
+	string message = 1;
+}
+

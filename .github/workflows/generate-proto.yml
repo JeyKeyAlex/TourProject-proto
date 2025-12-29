@@ -48,7 +48,15 @@ jobs:
       - name: Generate protobuf files
         run: |
           mkdir -p go-genproto/user
+          mkdir -p go-genproto/messenger
+          # Generate user package: type.proto and user.proto
           protoc -I proto proto/user/type.proto proto/user/user.proto \
+            --go_out=./go-genproto \
+            --go_opt=paths=source_relative \
+            --go-grpc_out=./go-genproto \
+            --go-grpc_opt=paths=source_relative
+          # Generate messenger package: only messenger.proto (type.proto is imported but not generated here)
+          protoc -I proto proto/messenger/messenger.proto \
             --go_out=./go-genproto \
             --go_opt=paths=source_relative \
             --go-grpc_out=./go-genproto \
@@ -72,14 +80,19 @@ jobs:
       - name: Copy generated files to genproto repo
         run: |
           mkdir -p genproto-repo/user
+          mkdir -p genproto-repo/messenger
+          # Copy all user files (including type.proto generated files)
           cp -r go-genproto/user/* genproto-repo/user/ || true
+          # Copy only messenger files (excluding any type.proto files that might have been generated)
+          find go-genproto/messenger -type f ! -name "type*" -exec cp {} genproto-repo/messenger/ \; || true
           ls -la genproto-repo/user/
+          ls -la genproto-repo/messenger/
 
       - name: Check for changes
         id: verify-changed-files
         working-directory: genproto-repo
         run: |
-          if [ -n "$(git status --porcelain user/)" ]; then
+          if [ -n "$(git status --porcelain user/ messenger/)" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -109,7 +122,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add user/
+          git add user/ messenger/
           git commit -m "chore: auto-generate protobuf files [skip ci]" || exit 0
           git remote set-url origin https://x-access-token:${{ secrets.GENPROTO_TOKEN }}@github.com/JeyKeyAlex/TestProject-genproto.git
           git push origin ${{ steps.get-branch.outputs.branch }}
